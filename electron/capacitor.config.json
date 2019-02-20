@@ -1,0 +1,6 @@
+{
+  "appId": "com.merzlabs.exportoo",
+  "appName": "exportoo",
+  "bundledWebRuntime": false,
+  "webDir": "www"
+}
