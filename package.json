@@ -29,6 +29,7 @@
     "@ionic/angular": "^4.0.0",
     "@ionic/pro": "2.0.4",
     "core-js": "^2.5.4",
+    "lokijs": "^1.5.6",
     "rxjs": "~6.3.3",
     "zone.js": "~0.8.29"
   },
@@ -44,6 +45,7 @@
     "@ionic/angular-toolkit": "~1.4.0",
     "@types/jasmine": "~2.8.8",
     "@types/jasminewd2": "~2.0.3",
+    "@types/lokijs": "^1.5.2",
     "@types/node": "~10.12.0",
     "codelyzer": "~4.5.0",
     "jasmine-core": "~2.99.1",

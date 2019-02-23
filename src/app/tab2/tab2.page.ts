@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-declare var loki;
+import * as Loki from 'lokijs';
 
 @Component({
   selector: 'app-tab2',
@@ -10,7 +10,7 @@ declare var loki;
 export class Tab2Page {
 
   test() {
-    const db = new loki('loki.json');
+    const db = new Loki('db.json');
     const children = db.addCollection('children');
     children.insert({ name: 'Sleipnir', legs: 8 });
     children.insert({ name: 'Jormungandr', legs: 0 });
