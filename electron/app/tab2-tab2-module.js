@@ -52,7 +52,7 @@ var Tab2PageModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\n  <ion-toolbar>\n    <ion-title>\n      Tab Two\n    </ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content></ion-content>\n"
+module.exports = "<ion-header>\n  <ion-toolbar>\n    <ion-title>\n      Tab Two\n    </ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n\n  <ion-button (click)=\"test()\">TEST</ion-button>\n</ion-content>\n"
 
 /***/ }),
 
@@ -84,6 +84,17 @@ __webpack_require__.r(__webpack_exports__);
 var Tab2Page = /** @class */ (function () {
     function Tab2Page() {
     }
+    Tab2Page.prototype.test = function () {
+        var db = new loki('loki.json');
+        var children = db.addCollection('children');
+        children.insert({ name: 'Sleipnir', legs: 8 });
+        children.insert({ name: 'Jormungandr', legs: 0 });
+        children.insert({ name: 'Hel', legs: 2 });
+        var legs = children.addDynamicView('legs');
+        legs.applyFind({ legs: { '$gt': 2 } });
+        legs.applySimpleSort('legs');
+        console.log(legs.data());
+    };
     Tab2Page = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-tab2',
