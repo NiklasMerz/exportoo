@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Card } from '../types/Card';
 
 @Component({
   selector: 'app-tab3',
@@ -19,8 +20,22 @@ export class Tab3Page {
       console.log(readXml);
       const parser = new DOMParser();
       const doc = parser.parseFromString(readXml, 'application/xml');
-      console.log(doc);
+      this.saveCardsToDB(doc);
     };
     reader.readAsText(this.fileToUpload);
+  }
+
+  private saveCardsToDB(doc: Document) {
+    const lessons = doc.querySelectorAll('Lesson');
+
+    lessons.forEach((lesson) => {
+      const lessonName = lesson.getAttribute('title');
+
+      const cards = lesson.querySelectorAll('Textfilecard');
+      cards.forEach((cardElem) => {
+        const card = new Card(cardElem, lessonName);
+        console.log(card);
+      });
+    });
   }
 }
