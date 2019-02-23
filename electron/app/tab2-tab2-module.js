@@ -83,13 +83,27 @@ __webpack_require__.r(__webpack_exports__);
 
 var Tab2Page = /** @class */ (function () {
     function Tab2Page() {
+        var db = new window.sqlite3.Database(':memory:');
+        db.serialize(function () {
+            db.run('CREATE TABLE lorem (info TEXT)');
+            var stmt = db.prepare('INSERT INTO lorem VALUES (?)');
+            for (var i = 0; i < 10; i++) {
+                stmt.run('Ipsum ' + i);
+            }
+            stmt.finalize();
+            db.each('SELECT rowid AS id, info FROM lorem', function (err, row) {
+                console.log(row.id + ': ' + row.info);
+            });
+        });
+        db.close();
     }
     Tab2Page = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-tab2',
             template: __webpack_require__(/*! ./tab2.page.html */ "./src/app/tab2/tab2.page.html"),
             styles: [__webpack_require__(/*! ./tab2.page.scss */ "./src/app/tab2/tab2.page.scss")]
-        })
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
     ], Tab2Page);
     return Tab2Page;
 }());

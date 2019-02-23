@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { Database } from 'sqlite3';
+
+declare var window: any;
 
 @Component({
   selector: 'app-tab2',
@@ -9,7 +10,8 @@ import { Database } from 'sqlite3';
 export class Tab2Page {
 
   constructor() {
-    const db = new Database(':memory:');
+    const db = new window.sqlite3.Database(':memory:');
+
     db.serialize(function () {
       db.run('CREATE TABLE lorem (info TEXT)');
 
