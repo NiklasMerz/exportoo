@@ -11,4 +11,23 @@
     <label for="file">Choose File</label>
     <input type="file" id="file" (change)="handleFileInput($event.target.files)">
   </div>
+
+  <br/><br/>
+
+
+<ion-content text-center padding>
+  <ion-grid>
+    <ion-row>
+      <ion-col *ngFor="let card of cards">
+        <ion-card>
+          <ion-card-title>
+            <div [innerHTML]="card.question"></div>
+          </ion-card-title>
+          <ion-card-content>
+            <div [innerHTML]="card.answer"></div>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

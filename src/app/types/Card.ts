@@ -7,5 +7,8 @@ export class Card {
     constructor(elem: Element, public lessonName) {
         //TODO 
         this.elem = elem;
+
+        this.question = elem.querySelector('Question').innerHTML.replace(']]>', '');
+        this.answer = elem.querySelector('Answer').innerHTML.replace(']]>', '');
     }
 }

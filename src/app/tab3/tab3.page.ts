@@ -8,6 +8,7 @@ import { Card } from '../types/Card';
 })
 export class Tab3Page {
   fileToUpload: File = null;
+  cards: Array<Card> = [];
 
   handleFileInput(files: FileList) {
     this.fileToUpload = files.item(0);
@@ -34,7 +35,7 @@ export class Tab3Page {
       const cards = lesson.querySelectorAll('Textfilecard');
       cards.forEach((cardElem) => {
         const card = new Card(cardElem, lessonName);
-        console.log(card);
+        this.cards.push(card);
       });
     });
   }
