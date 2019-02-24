@@ -20,11 +20,9 @@
     <ion-row>
       <ion-col *ngFor="let card of cards">
         <ion-card>
-          <ion-card-title>
-            <div [innerHTML]="card.question"></div>
-          </ion-card-title>
-          <ion-card-content>
-            <div [innerHTML]="card.answer"></div>
+          <ion-card-content style="width: 450px">
+            <iframe class="iframe-card"[srcdoc]="card.question" frameborder="0"></iframe>
+            <iframe class="iframe-card" [srcdoc]="card.answer" frameborder="0"></iframe>
           </ion-card-content>
         </ion-card>
       </ion-col>
