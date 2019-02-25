@@ -51,7 +51,6 @@ export class Tab3Page {
 
   search(event: any) {
     const search = event.detail.value;
-    console.debug(this.cardCollection);
     this.cards = this.cardCollection.find({
         '$or': [
         {
