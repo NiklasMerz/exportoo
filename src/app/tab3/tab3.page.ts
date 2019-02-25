@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { Card } from '../types/Card';
 
+import * as Loki from 'lokijs';
+
 @Component({
   selector: 'app-tab3',
   templateUrl: 'tab3.page.html',
@@ -9,6 +11,12 @@ import { Card } from '../types/Card';
 export class Tab3Page {
   fileToUpload: File = null;
   cards: Array<Card> = [];
+  cardCollection: Collection<Card>;
+
+  constructor() {
+    const db = new Loki('db.json');
+    this.cardCollection = db.addCollection('cards');
+  }
 
   handleFileInput(files: FileList) {
     this.fileToUpload = files.item(0);
@@ -36,7 +44,27 @@ export class Tab3Page {
       cards.forEach((cardElem) => {
         const card = new Card(cardElem, lessonName);
         this.cards.push(card);
+        this.cardCollection.insert(card);
       });
+    });
+  }
+
+  search(event: any) {
+    const search = event.detail.value;
+    console.debug(this.cardCollection);
+    this.cards = this.cardCollection.find({
+        '$or': [
+        {
+          'question': {
+            '$regex': [search, 'ig']
+          }
+        },
+        {
+          'answer': {
+            '$regex': [search, 'ig']
+          }
+        }
+      ]
     });
   }
 }
