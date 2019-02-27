@@ -4,19 +4,54 @@
   "description": "Read your exports",
   "main": "index.js",
   "scripts": {
-    "electron:start": "electron ./"
+    "electron:start": "electron ./",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
+  },
+  "repository": {
+    "url": "https://github.com/NiklasMerz/exportoo"
+  },
+  "build": {
+    "appId": "com.merzlabs.exportoo",
+    "copyright": "Copyright © year ${author}",
+    "productName": "Exportoo",
+    "directories": {
+      "buildResources": "build/"
+    },
+    "files": [
+      "**/*",
+      "build/icon.*",
+      "node_modules/"
+    ],
+    "publish": [
+      {
+        "provider": "github"
+      }
+    ],
+    "linux": {
+      "target": [
+        "AppImage"
+      ]
+    },
+    "win": {
+      "target": "nsis",
+      "icon": "build/icon.png",
+      "legalTrademarks": "Copyright © year ${author}"
+    }
   },
   "dependencies": {
     "@capacitor/electron": "^1.0.0-alpha.28",
     "electron-is-dev": "^0.3.0"
   },
   "devDependencies": {
-    "electron": "^4.0.0"
+    "electron": "^4.0.0",
+    "electron-builder": "^20.38.5"
   },
   "keywords": [
     "capacitor",
     "electron"
   ],
   "author": "Niklas Merz",
+  "email": "niklas@merzlabs.com",
   "license": "MIT"
 }

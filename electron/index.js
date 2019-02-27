@@ -9,7 +9,7 @@ let mainWindow = null;
 let splashScreen = null;
 
 //Change this if you do not wish to have a splash screen
-let useSplashScreen = true;
+let useSplashScreen = false;
 
 // Create simple menu for easy devtools access, and for demo
 const menuTemplateDev = [
@@ -42,7 +42,7 @@ async function createWindow () {
   }
 
   if(useSplashScreen) {
-    splashScreen = new CapacitorSplashScreen(mainWindow);
+    splashScreen = new CapacitorSplashScreen(mainWindow, { baseURLForDataURL: `file://${__dirname}/splash_assets/` });
     splashScreen.init();
   } else {
     mainWindow.loadURL(await injectCapacitor(`file://${__dirname}/app/index.html`), {baseURLForDataURL: `file://${__dirname}/app/`});
