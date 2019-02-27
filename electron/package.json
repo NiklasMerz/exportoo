@@ -23,20 +23,18 @@
       "build/icon.*",
       "node_modules/"
     ],
-    "publish": [
-      {
-        "provider": "github"
-      }
-    ],
     "linux": {
       "target": [
-        "AppImage"
-      ]
+        "AppImage",
+        "deb"
+      ],
+      "publish": [{ "provider": "github" }]
     },
     "win": {
       "target": "nsis",
       "icon": "build/icon.png",
-      "legalTrademarks": "Copyright © year ${author}"
+      "legalTrademarks": "Copyright © year ${author}",
+      "publish": [{ "provider": "github" }]
     }
   },
   "dependencies": {
@@ -51,7 +49,6 @@
     "capacitor",
     "electron"
   ],
-  "author": "Niklas Merz",
-  "email": "niklas@merzlabs.com",
+  "author": {"name": "Niklas Merz", "email": "niklas@merzlabs.com" },
   "license": "MIT"
 }
