@@ -9,7 +9,6 @@ import * as Loki from 'lokijs';
   styleUrls: ['tab3.page.scss']
 })
 export class Tab3Page {
-  fileToUpload: File = null;
   cards: Array<Card> = [];
   cardCollection: Collection<Card>;
 
@@ -19,19 +18,22 @@ export class Tab3Page {
   }
 
   handleFileInput(files: FileList) {
-    this.fileToUpload = files.item(0);
+    console.log('Files', files);
 
-    console.log(this.fileToUpload);
+    for (let i = 0; i < files.length; i++) {
+      this.processFile(files.item(i));
+    }
+  }
 
+  private processFile(file: File) {
     const reader = new FileReader();
     reader.onload = (e: any) => {
       const readXml = e.target.result;
-      console.log(readXml);
       const parser = new DOMParser();
       const doc = parser.parseFromString(readXml, 'application/xml');
       this.saveCardsToDB(doc);
     };
-    reader.readAsText(this.fileToUpload);
+    reader.readAsText(file);
   }
 
   private saveCardsToDB(doc: Document) {
