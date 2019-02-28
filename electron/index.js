@@ -1,6 +1,7 @@
 const { app, BrowserWindow, Menu } = require('electron');
 const isDevMode = require('electron-is-dev');
 const { injectCapacitor, CapacitorSplashScreen } = require('@capacitor/electron');
+const { autoUpdater } = require("electron-updater");
 
 // Place holders for our windows so they don't get garbage collected.
 let mainWindow = null;
@@ -25,6 +26,10 @@ const menuTemplateDev = [
     ],
   },
 ];
+
+autoUpdater.logger = log;
+autoUpdater.logger.transports.file.level = 'info';
+log.info('App starting...');
 
 async function createWindow () {
   // Define our main window size
@@ -57,6 +62,17 @@ async function createWindow () {
 // initialization and is ready to create browser windows.
 // Some Electron APIs can only be used after this event occurs.
 app.on('ready', createWindow);
+
+
+//-------------------------------------------------------------------
+// Auto updates - Option 1 - Simplest version
+//
+// This will immediately download an update, then install when the
+// app quits.
+//-------------------------------------------------------------------
+app.on('ready', function () {
+  autoUpdater.checkForUpdatesAndNotify();
+});
 
 // Quit when all windows are closed.
 app.on('window-all-closed', function () {

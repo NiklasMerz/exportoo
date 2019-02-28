@@ -7,7 +7,8 @@
     "electron:start": "electron ./",
     "pack": "electron-builder --dir",
     "dist": "electron-builder",
-    "release": "build"
+    "release": "build",
+    "publish": "electron-builder -mwl --publish always"
   },
   "repository": {
     "type": "git",
@@ -49,11 +50,24 @@
           "repo": "exportoo"
         }
       ]
+    },
+    "mac": {
+      "target": [
+        "default"
+      ],
+      "publish": [
+        {
+          "provider": "github",
+          "owner": "NiklasMerz",
+          "repo": "exportoo"
+        }
+      ]
     }
   },
   "dependencies": {
     "@capacitor/electron": "^1.0.0-alpha.28",
-    "electron-is-dev": "^0.3.0"
+    "electron-is-dev": "^0.3.0",
+    "electron-updater": "^4.0.6"
   },
   "devDependencies": {
     "electron": "^4.0.0",
