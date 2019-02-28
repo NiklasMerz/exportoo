@@ -1,6 +1,6 @@
 {
   "name": "exportoo",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Read your exports",
   "main": "index.js",
   "scripts": {
@@ -30,13 +30,25 @@
         "AppImage",
         "deb"
       ],
-      "publish": [{ "provider": "github", "owner": "NiklasMerz", "repo": "exportoo" }]
+      "publish": [
+        {
+          "provider": "github",
+          "owner": "NiklasMerz",
+          "repo": "exportoo"
+        }
+      ]
     },
     "win": {
       "target": "nsis",
       "icon": "build/icon.png",
       "legalTrademarks": "Copyright © year ${author}",
-      "publish": [{ "provider": "github", "owner": "NiklasMerz", "repo": "exportoo" }]
+      "publish": [
+        {
+          "provider": "github",
+          "owner": "NiklasMerz",
+          "repo": "exportoo"
+        }
+      ]
     }
   },
   "dependencies": {
@@ -51,6 +63,9 @@
     "capacitor",
     "electron"
   ],
-  "author": {"name": "Niklas Merz", "email": "niklas@merzlabs.com" },
+  "author": {
+    "name": "Niklas Merz",
+    "email": "niklas@merzlabs.com"
+  },
   "license": "MIT"
 }
