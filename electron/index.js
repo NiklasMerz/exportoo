@@ -27,10 +27,6 @@ const menuTemplateDev = [
   },
 ];
 
-autoUpdater.logger = log;
-autoUpdater.logger.transports.file.level = 'info';
-log.info('App starting...');
-
 async function createWindow () {
   // Define our main window size
   mainWindow = new BrowserWindow({
