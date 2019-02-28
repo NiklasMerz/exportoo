@@ -8,7 +8,7 @@
     "pack": "electron-builder --dir",
     "dist": "electron-builder",
     "release": "build",
-    "publish": "electron-builder -mwl --publish always"
+    "publish-app": "electron-builder --publish always"
   },
   "repository": {
     "type": "git",
