@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Card } from '../types/Card';
 
 import * as Loki from 'lokijs';
+import { reject } from 'q';
 
 @Component({
   selector: 'app-tab3',
@@ -11,29 +12,75 @@ import * as Loki from 'lokijs';
 export class Tab3Page {
   cards: Array<Card> = [];
   cardCollection: Collection<Card>;
+  private fileStorage: {[key: string]: File} = {};
+  private xmlReader: FileReader;
 
   constructor() {
     const db = new Loki('db.json');
     this.cardCollection = db.addCollection('cards');
+
+    this.xmlReader = new FileReader();
+    this.xmlReader.onload = (e: any) => {
+      const readXml = e.target.result;
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(readXml, 'application/xml');
+      this.saveCardsToDB(doc);
+    };
   }
 
   handleFileInput(files: FileList) {
     console.log('Files', files);
 
     for (let i = 0; i < files.length; i++) {
-      this.processFile(files.item(i));
+      if (files[i].type === 'text/xml') {
+        this.xmlReader.readAsText(files[i]);
+      } else {
+        this.fileStorage[files[i].name] = files[i];
+      }
+    }
+    this.processImages();
+  }
+
+  private async processImages() {
+    for (const fileName in this.fileStorage) {
+      if (this.fileStorage[fileName].type.includes('image')) {
+        await this.readImage(fileName);
+      }
     }
   }
 
-  private processFile(file: File) {
-    const reader = new FileReader();
-    reader.onload = (e: any) => {
-      const readXml = e.target.result;
-      const parser = new DOMParser();
-      const doc = parser.parseFromString(readXml, 'application/xml');
-      this.saveCardsToDB(doc);
+  private readImage(fileName: string) {
+    return new Promise((resolve) => {
+      const imageReader = new FileReader;
+      imageReader.onload = (e: any) => {
+        const result = e.target.result;
+        this.replaceImages(fileName, result);
+        resolve();
+      };
+      imageReader.readAsDataURL(this.fileStorage[fileName]);
+    });
+  }
+
+  private replaceImages(imageName: string, imageSrc: string) {
+    const findObj = {
+      '$or': [
+        {
+          'question': {
+            '$regex': [imageName, 'ig']
+          }
+        },
+        {
+          'answer': {
+            '$regex': [imageName, 'ig']
+          }
+        }
+      ]
     };
-    reader.readAsText(file);
+
+    const res =  this.cardCollection.chain().find(findObj).update((card) => {
+      card.question = card.question.replace(imageName, imageSrc);
+      card.answer = card.answer.replace(imageName, imageSrc);
+    });
   }
 
   private saveCardsToDB(doc: Document) {
@@ -53,8 +100,8 @@ export class Tab3Page {
 
   search(event: any) {
     const search = event.detail.value;
-    this.cards = this.cardCollection.find({
-        '$or': [
+    const findObj = {
+      '$or': [
         {
           'question': {
             '$regex': [search, 'ig']
@@ -66,6 +113,7 @@ export class Tab3Page {
           }
         }
       ]
-    });
+    };
+    this.cards = this.cardCollection.find(findObj);
   }
 }
