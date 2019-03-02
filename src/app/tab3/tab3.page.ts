@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { Card } from '../types/Card';
 
 import * as Loki from 'lokijs';
-import { reject } from 'q';
+
+declare var LokiIndexedAdapter;
 
 @Component({
   selector: 'app-tab3',
@@ -16,8 +17,24 @@ export class Tab3Page {
   private xmlReader: FileReader;
 
   constructor() {
-    const db = new Loki('db.json');
-    this.cardCollection = db.addCollection('cards');
+    const idbAdapter = new LokiIndexedAdapter();
+    let db: Loki = null;
+    const databaseInitializeCallback = () => {
+      console.log('DB initialized', db);
+      this.cardCollection = db.getCollection('cards');
+      if (!this.cardCollection) {
+        this.cardCollection = db.addCollection('cards');
+      }
+      this.cards = this.cardCollection.find();
+    };
+
+    db = new Loki('exportoo.db', {
+      adapter: idbAdapter,
+      autoload: true,
+      autoloadCallback: databaseInitializeCallback,
+      autosave: true,
+      autosaveInterval: 4000
+    });
 
     this.xmlReader = new FileReader();
     this.xmlReader.onload = (e: any) => {
