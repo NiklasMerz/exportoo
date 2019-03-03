@@ -11,7 +11,11 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "build:electron": "ng build --base-href ./ && npx cap copy && cd electron && npm run electron:start"
+    "build:electron": "ng build --base-href ./ && npx cap copy && cd electron && npm run electron:start",
+    "prodbuild": "ng build --prod --source-map"
+  },
+  "config": {
+    "ionic_generate_source_map": "true"
   },
   "license": "MIT",
   "dependencies": {
@@ -21,7 +25,9 @@
     "@angular/http": "^7.2.2",
     "@angular/platform-browser": "^7.2.2",
     "@angular/platform-browser-dynamic": "^7.2.2",
+    "@angular/pwa": "^0.13.4",
     "@angular/router": "^7.2.2",
+    "@angular/service-worker": "^7.2.2",
     "@capacitor/cli": "1.0.0-beta.17",
     "@capacitor/core": "1.0.0-beta.17",
     "@ionic-native/core": "^5.0.0",
