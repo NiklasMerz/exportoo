@@ -8,6 +8,7 @@
 
 <ion-content>
   <ion-item>
+    <ion-label>Add files</ion-label>
     <input type="file" multiple id="file" (change)="handleFileInput($event.target.files)">
   </ion-item>
 
@@ -21,11 +22,13 @@
 <ion-content text-center padding>
   <ion-grid>
     <ion-row>
-      <ion-col *ngFor="let card of cards">
+      <ion-col *ngFor="let card of cards" size="4">
         <ion-card>
-          <ion-card-content style="width: 450px">
-            <iframe class="iframe-card"[srcdoc]="card.question" frameborder="0"></iframe>
-            <iframe class="iframe-card" [srcdoc]="card.answer" frameborder="0"></iframe>
+          <ion-card-title>
+            <div [innerHTML]="card.question"></div>
+          </ion-card-title>
+          <ion-card-content>
+            <div [innerHTML]="card.answer"></div>
           </ion-card-content>
         </ion-card>
       </ion-col>
