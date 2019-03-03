@@ -14,7 +14,6 @@ export class Tab3Page {
   cards: Array<Card> = [];
   cardCollection: Collection<Card>;
   private fileStorage: {[key: string]: File} = {};
-  private xmlReader: FileReader;
 
   constructor() {
     const idbAdapter = new LokiIndexedAdapter();
@@ -35,14 +34,6 @@ export class Tab3Page {
       autosave: true,
       autosaveInterval: 4000
     });
-
-    this.xmlReader = new FileReader();
-    this.xmlReader.onload = (e: any) => {
-      const readXml = e.target.result;
-      const parser = new DOMParser();
-      const doc = parser.parseFromString(readXml, 'application/xml');
-      this.saveCardsToDB(doc);
-    };
   }
 
   handleFileInput(files: FileList) {
@@ -50,12 +41,23 @@ export class Tab3Page {
 
     for (let i = 0; i < files.length; i++) {
       if (files[i].type === 'text/xml') {
-        this.xmlReader.readAsText(files[i]);
+        this.processXML(files[i]);
       } else {
         this.fileStorage[files[i].name] = files[i];
       }
     }
     this.processImages();
+  }
+
+  private processXML(file: File) {
+    const xmlReader = new FileReader();
+    xmlReader.onload = (e: any) => {
+      const readXml = e.target.result;
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(readXml, 'application/xml');
+      this.saveCardsToDB(doc);
+    };
+    xmlReader.readAsText(file);
   }
 
   private async processImages() {
