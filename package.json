@@ -1,6 +1,6 @@
 {
   "name": "exportoo",
-  "version": "0.1.1",
+  "version": "1.0.0",
   "author": "Niklas Merz",
   "email": "niklas@merzlabs.com",
   "homepage": "https://github.com/niklasmerz/exportoo",
@@ -12,7 +12,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "build:electron": "ng build --base-href ./ && npx cap copy && cd electron && npm run electron:start",
-    "prodbuild": "ng build --prod --source-map"
+    "prodbuild": "ng build --prod --source-map --base-href ./ && npx cap copy"
   },
   "config": {
     "ionic_generate_source_map": "true"
