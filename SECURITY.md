@@ -4,9 +4,8 @@
 
 ## Supported Versions
 
-The latest version of the plugin is the only supported version right now. This might change if breaking changes (like a version 2) is introduced.
+Only the [web version](https://exportoo.merz.dev/) is updated frequently. Desktop builds may be outdated.
 
-The only supported iOS version is the latest stable release. The most used Android versions are covered under a best effort basis.
 
 ## Reporting a Vulnerability
 
